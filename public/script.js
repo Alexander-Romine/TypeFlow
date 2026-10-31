@@ -2406,6 +2406,14 @@ window.addEventListener("resize", () => {
   buildSubbar();
   restart();
 
+  // Ensure favicon immediately displays and bypasses any stale browser cache
+  try {
+    const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="2" y="4" width="60" height="56" rx="14" fill="#080c12"/><rect x="2" y="2" width="60" height="54" rx="14" fill="#1b2432" stroke="#38495f" stroke-width="2"/><rect x="7" y="6" width="50" height="42" rx="9" fill="#111823" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/><path d="M26 17v8h-6v6h6v12c0 4.2 2.6 6.5 7.5 6.5h5.5v-6h-4.2c-1.8 0-2.8-.8-2.8-2.5V31h7v-6h-7v-8z" fill="#f8fafc"/><rect x="42.5" y="20" width="5.5" height="26" rx="2.75" fill="#3b82f6"/></svg>`;
+    const dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`;
+    const links = document.querySelectorAll("link[rel*='icon']");
+    links.forEach((l) => { if (l.type === "image/svg+xml") l.href = dataUrl; });
+  } catch { /* ignore */ }
+
   window.addEventListener("beforeunload", () => {
     save("typeflow_settings", { mode: S.mode, limit: S.limit, punct: S.punct, nums: S.nums, caps: S.caps });
   });

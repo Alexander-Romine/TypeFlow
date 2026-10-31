@@ -1,27 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <linearGradient id="tfBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a2333" />
-      <stop offset="100%" stop-color="#0a0e16" />
+    <linearGradient id="tfKeycap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#243042" />
+      <stop offset="100%" stop-color="#111823" />
     </linearGradient>
-    <linearGradient id="tfAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#93c5fd" />
+    <linearGradient id="tfDish" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#16202c" />
+      <stop offset="100%" stop-color="#0d141d" />
+    </linearGradient>
+    <linearGradient id="tfCaret" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
       <stop offset="100%" stop-color="#3b82f6" />
     </linearGradient>
-    <filter id="tfGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#3b82f6" flood-opacity="0.5" />
-    </filter>
   </defs>
 
-  <!-- Keycap base -->
-  <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#tfBg)" stroke="#2e3d52" stroke-width="1.2" />
-  
-  <!-- Subtle inner highlight -->
-  <rect x="3.5" y="3.5" width="25" height="25" rx="5.5" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+  <!-- Keycap base / shadow -->
+  <rect x="2" y="4" width="60" height="56" rx="14" fill="#080c12" />
+  <!-- Main keycap body -->
+  <rect x="2" y="2" width="60" height="54" rx="14" fill="url(#tfKeycap)" stroke="#38495f" stroke-width="2" />
+  <!-- Top keycap concave dish -->
+  <rect x="7" y="6" width="50" height="42" rx="9" fill="url(#tfDish)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" />
 
-  <!-- Lowercase 't' in sleek monospace style -->
-  <path d="M12 9v4h-2.5v2.5H12v6c0 2.2 1.3 3.5 3.5 3.5h2.5v-2.5h-2c-.8 0-1.2-.4-1.2-1.2v-5.8h3.7V13H14.8V9H12z" fill="#f8fafc" />
-  
-  <!-- Glowing typing caret cursor -->
-  <rect x="20" y="9.5" width="2.4" height="13" rx="1.2" fill="url(#tfAccent)" filter="url(#tfGlow)" />
+  <!-- Bold, clean monospace lowercase 't' -->
+  <path d="M26 17v8h-6v6h6v12c0 4.2 2.6 6.5 7.5 6.5h5.5v-6h-4.2c-1.8 0-2.8-.8-2.8-2.5V31h7v-6h-7v-8z" fill="#f8fafc" />
+
+  <!-- Glowing live typing caret cursor -->
+  <rect x="42.5" y="20" width="5.5" height="26" rx="2.75" fill="url(#tfCaret)" />
 </svg>
