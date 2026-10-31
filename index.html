@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <title>typeflow</title>
+  <meta name="description" content="Aesthetic lofi typing test featuring mechanical keyboard sounds, live lofi girl stream, and real-time color theme previews on hover." />
+  <meta property="og:title" content="typeflow" />
+  <meta property="og:description" content="Aesthetic lofi typing test featuring mechanical keyboard sounds, live lofi girl stream, and real-time color theme previews on hover." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="logo" id="logo">typeflow</div>
+    <nav class="modes" id="modes">
+      <button class="mode active" data-mode="time">time</button>
+      <button class="mode" data-mode="words">words</button>
+      <button class="mode" data-mode="daily">daily</button>
+    </nav>
+    <div class="opts">
+      <button class="opt" id="opt-punct" title="punctuation">.,</button>
+      <button class="opt" id="opt-nums" title="numbers">123</button>
+      <button class="opt" id="opt-caps" title="capitalization">Aa</button>
+      <button class="opt" id="opt-sound" title="typing sounds">♪</button>
+      <button class="opt" id="opt-lofi" title="lofi girl live stream">lofi</button>
+      <button class="opt" id="btn-stats" title="your stats">stats</button>
+      <button class="opt" id="btn-settings" title="settings">⚙</button>
+    </div>
+  </header>
+
+  <!-- settings popover -->
+  <div class="settings-pop" id="settings-pop" hidden>
+    <label class="setrow" for="opt-theme" id="row-theme">
+      <span>light mode</span>
+      <input type="checkbox" id="opt-theme" class="switch">
+    </label>
+    <div class="setrow setrow-stack">
+      <span class="setlabel">theme</span>
+      <div class="seg seg-theme" id="accent-options">
+        <button class="segbtn" data-accent="blue" type="button"><span class="swatch-dot dot-blue"></span>ocean</button>
+        <button class="segbtn" data-accent="mint" type="button"><span class="swatch-dot dot-mint"></span>mocha</button>
+        <button class="segbtn" data-accent="violet" type="button"><span class="swatch-dot dot-violet"></span>nebula</button>
+        <button class="segbtn" data-accent="orange" type="button"><span class="swatch-dot dot-orange"></span>sunset</button>
+        <button class="segbtn" data-accent="black" type="button"><span class="swatch-dot dot-black"></span>onyx</button>
+        <button class="segbtn" data-accent="nord" type="button"><span class="swatch-dot dot-nord"></span>arctic</button>
+        <button class="segbtn" data-accent="coffee" type="button"><span class="swatch-dot dot-coffee"></span>latte</button>
+        <button class="segbtn" data-accent="sakura" type="button"><span class="swatch-dot dot-sakura"></span>sakura</button>
+        <button class="segbtn" data-accent="crimson" type="button"><span class="swatch-dot dot-crimson"></span>crimson</button>
+      </div>
+    </div>
+    <div class="setrow setrow-stack">
+      <span class="setlabel">size</span>
+      <div class="seg seg-3" id="type-sizes">
+        <button class="segbtn" data-size="compact" type="button">small</button>
+        <button class="segbtn" data-size="standard" type="button">med</button>
+        <button class="segbtn" data-size="large" type="button">large</button>
+      </div>
+    </div>
+    <div class="setrow setrow-stack">
+      <span class="setlabel">key sound</span>
+      <div class="seg seg-sounds" id="sound-profiles">
+        <button class="segbtn" data-p="cream" type="button">creamy</button>
+        <button class="segbtn" data-p="boxnavy" type="button">clicky</button>
+        <button class="segbtn" data-p="topre" type="button">soft</button>
+        <button class="segbtn" data-p="alpaca" type="button">smooth</button>
+        <button class="segbtn" data-p="turquoise" type="button">crisp</button>
+        <button class="segbtn" data-p="off" type="button">mute</button>
+      </div>
+    </div>
+    <label class="setrow setrow-stack" for="sound-volume">
+      <span class="range-label"><span>volume</span><output id="volume-value">70%</output></span>
+      <input id="sound-volume" class="range" type="range" min="0" max="100" value="70">
+    </label>
+  </div>
+
+  <div class="subbar" id="subbar"></div>
+
+  <main>
+    <!-- ============ test view ============ -->
+    <section id="test-view" class="view">
+      <div class="livestats">
+        <div class="stat" id="stat-streak" hidden><span id="live-streak">0</span><label>streak</label></div>
+        <div class="stat"><span id="live-wpm">0</span><label>wpm</label></div>
+        <div class="stat" id="stat-time"><span id="live-time">30</span><label id="time-label">time</label></div>
+        <div class="stat" id="stat-left" hidden><span id="live-left">—</span><label>left</label></div>
+      </div>
+
+      <div class="weakstrip" id="weakstrip"></div>
+
+      <div class="typewrap" id="typewrap">
+        <div class="words" id="words"></div>
+        <div class="caret" id="caret"></div>
+        <div class="focusnote" id="focusnote">click here or press any key to focus</div>
+      </div>
+
+      <canvas id="livegraph" class="livegraph" height="90"></canvas>
+
+      <button class="ghost endbtn" id="end-btn" hidden>end test (esc)</button>
+
+      <textarea id="mobile-input" autocapitalize="off" autocomplete="off"
+        autocorrect="off" spellcheck="false" aria-label="typing input"></textarea>
+    </section>
+
+    <!-- ============ results view ============ -->
+    <section id="results-view" class="view" hidden>
+      <div class="result-layout">
+        <div class="result-side">
+          <div class="bigstat">
+            <label>wpm</label>
+            <span id="res-wpm">0</span>
+          </div>
+          <div class="bigstat">
+            <label>acc</label>
+            <span id="res-acc">0%</span>
+          </div>
+          <div class="pb-badge" id="pb-badge" hidden>new personal best</div>
+        </div>
+
+        <div class="result-graph-wrap">
+          <canvas id="resgraph" class="resgraph" height="200"></canvas>
+          <div id="graph-tooltip" class="graph-tooltip" hidden></div>
+          <div class="graph-legend">
+            <span class="legend-item"><span class="legend-line legend-wpm"></span>wpm</span>
+            <span class="legend-item"><span class="legend-line legend-raw"></span>raw</span>
+            <span class="legend-item"><span class="legend-mark legend-err">✕</span>errors</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-bottom-grid">
+        <div class="rstat"><label>test type</label><span id="result-meta" class="meta-val">time 30</span></div>
+        <div class="rstat"><label>raw</label><span id="res-raw">0</span></div>
+        <div class="rstat chars" title="characters: correct / incorrect / extra"><label>characters</label><span id="res-chars" class="chars-val"></span></div>
+        <div class="rstat"><label>time</label><span id="res-time">0s</span></div>
+      </div>
+
+
+      <div class="panel weak-panel" id="weak-panel" hidden>
+        <div class="kb" id="heatmap"></div>
+        <button class="cta" id="practice-btn">practice weak keys</button>
+      </div>
+
+      <div class="daily-result" id="daily-result" hidden>
+        <span id="daily-streak"></span>
+        <button class="ghost" id="share-btn">copy result</button>
+      </div>
+
+      <div class="actions">
+        <button class="cta" id="next-btn">next test</button>
+        <button class="ghost" id="repeat-btn">repeat</button>
+      </div>
+
+      <div class="action-hints">
+        <span class="hint-item"><kbd>tab</kbd> + <kbd>enter</kbd> restart</span>
+        <span class="hint-dot">·</span>
+        <span class="hint-item"><kbd>enter</kbd> next test</span>
+        <span class="hint-dot">·</span>
+        <span class="hint-item"><kbd>esc</kbd> quick restart</span>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<!-- ============ stats view ============ -->
+<section id="stats-view" class="view overlayview" hidden>
+  <div class="stats-inner">
+    <div class="stats-head">
+      <h2>stats</h2>
+      <button class="ghost" id="stats-close">back</button>
+    </div>
+    <div class="stats-totals" id="stats-totals"></div>
+    <div class="panel stats-graph-panel">
+      <div class="panel-head-row">
+        <h3>progress</h3>
+        <div class="hist-legend">
+          <span class="legend-item"><span class="legend-line legend-wpm"></span>wpm</span>
+          <span class="legend-item"><span class="legend-line legend-acc"></span>accuracy</span>
+        </div>
+      </div>
+      <div class="histgraph-wrap">
+        <canvas id="histgraph" class="histgraph" height="200"></canvas>
+        <div id="hist-tooltip" class="graph-tooltip" hidden></div>
+      </div>
+    </div>
+    <div class="panel stats-pb-panel">
+      <h3>personal bests</h3>
+      <div id="pb-categories" class="pb-categories"></div>
+      <div class="pbtable-wrap" id="pb-custom-wrap" hidden>
+        <div class="pb-custom-title">additional configurations</div>
+        <table class="pbtable" id="pbtable"></table>
+      </div>
+    </div>
+    <div class="stats-foot">
+      <button class="ghost danger" id="clear-history">clear all history</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ command palette ============ -->
+<div class="cmd-overlay" id="cmd-overlay" hidden>
+  <div class="cmd-box">
+    <input id="cmd-input" type="text" placeholder="type a command…" autocomplete="off" spellcheck="false">
+    <div class="cmd-list" id="cmd-list"></div>
+  </div>
+</div>
+
+<!-- ============ lofi girl mini player ============ -->
+<div class="lofi-pop" id="lofi-pop">
+  <div class="lofi-bar" id="lofi-bar">
+    <span class="lofi-title">lofi girl <span class="lofi-live">live</span></span>
+    <a class="lofi-note" id="lofi-note" target="_blank" rel="noopener" hidden></a>
+    <button class="lofi-min" id="lofi-min" type="button" title="minimize">─</button>
+  </div>
+  <div class="lofi-frame">
+    <div class="lofi-mount" id="lofi-mount">loading stream…</div>
+  </div>
+  <div class="lofi-vol-bar" id="lofi-vol-bar">
+    <span class="lofi-vol-icon">♪</span>
+    <input type="range" id="lofi-volume" class="range lofi-range" min="0" max="100" value="70" title="lofi volume">
+    <output id="lofi-vol-val" class="lofi-vol-val">70%</output>
+  </div>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>

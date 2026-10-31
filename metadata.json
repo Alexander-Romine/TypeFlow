@@ -1,0 +1,7 @@
+{
+  "name": "typeflow - lofi typing flow with live theme preview",
+  "description": "Aesthetic lofi typing test featuring mechanical keyboard sounds, live lofi girl stream, and real-time color theme previews on hover.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
