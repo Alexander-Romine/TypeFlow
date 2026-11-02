@@ -4,7 +4,7 @@ A lofi typing test with mechanical keyboard sounds, a live Lofi Girl stream, and
 
 **Live site:** https://type-flow-daily.vercel.app
 
-![TypeFlow screenshot](Screenshot.png)
+![TypeFlow screenshot](screenshot.png)
 
 ## Features
 
