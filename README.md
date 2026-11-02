@@ -1,20 +1,23 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# TypeFlow
 
-# Run and deploy your AI Studio app
+A lofi typing test with mechanical keyboard sounds, a live Lofi Girl stream, and real-time color theme previews.
 
-This contains everything you need to run your app locally.
+**Live site:** https://type-flow-daily.vercel.app
 
-View your app in AI Studio: https://ai.studio/apps/efa6b252-c8ad-4ad9-86a5-7a8fbade2251
+![TypeFlow screenshot](Screenshot.png)
 
-## Run Locally
+## Features
 
-**Prerequisites:**  Node.js
+- Time, words and daily test modes, with optional punctuation and numbers
+- Hover a theme to preview it live, plus a light mode toggle
+- Five mechanical keyboard sound packs: alpaca, box navy, cream, Topre and turquoise
+- Adjustable text size
+- Live stats and personal bests, including custom configurations
+- Embedded Lofi Girl live stream
 
+## Tech Stack
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- [Vite](https://vite.dev/)
+- HTML, CSS and vanilla JavaScript
+- Keyboard sounds from [KBSIM](public/sounds/KBSIM-LICENSE.md)
+- Hosted on [Vercel](https://vercel.com)
