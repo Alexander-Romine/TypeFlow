@@ -1,6 +1,6 @@
 # TypeFlow
 
-A lofi typing test with mechanical keyboard sounds, a live Lofi Girl stream, and real-time color theme previews.
+A typing test based on MonkeyType with keyboard sounds and lofi.
 
 **Live site:** https://type-flow-daily.vercel.app
 
@@ -9,8 +9,8 @@ A lofi typing test with mechanical keyboard sounds, a live Lofi Girl stream, and
 ## Features
 
 - Time, words and daily test modes, with optional punctuation and numbers
-- Hover a theme to preview it live, plus a light mode toggle
-- Five mechanical keyboard sound packs: alpaca, box navy, cream, Topre and turquoise
+- Color themes
+- Five mechanical keyboard sound packs
 - Adjustable text size
 - Live stats and personal bests, including custom configurations
 - Embedded Lofi Girl live stream
